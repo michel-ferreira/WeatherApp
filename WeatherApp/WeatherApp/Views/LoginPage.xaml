@@ -4,26 +4,47 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="WeatherApp.Views.LoginPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="#112B47">
 
-    <StackLayout Padding="10">
-        <Label Text="Email" />
+    <StackLayout Padding="40" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+
+        <Image Source="Logo.png" WidthRequest="180" HeightRequest="180"></Image>
         <Entry
             Keyboard="Email"
             Placeholder="Enter your email"
-            Text="{Binding Email}" />
-        <Label Text="Password" />
+            PlaceholderColor="Gray"
+            Text="{Binding Email}" 
+            TextColor="White"/>
         <Entry
             IsPassword="True"
             Placeholder="Enter your password"
-            Text="{Binding Password}" />
+            PlaceholderColor="Gray"
+            Text="{Binding Password}" 
+            TextColor="White"/>
         <ActivityIndicator 
             IsRunning="{Binding IsRunning}" 
             VerticalOptions="CenterAndExpand" />
         <Button
+            VerticalOptions="Center"
             Command="{Binding LoginCommand}"
             IsEnabled="{Binding IsEnabled}"
-            Text="Login" />
+            Text="Login"
+            TextColor="White"
+            BorderColor="ForestGreen"
+            CornerRadius="50"/>
+
+        <Label HorizontalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Don't have an account? " TextColor="Gray" FontAttributes="Bold"/>
+                    <Span Text="Register" TextColor="Gray" FontAttributes="Bold" TextDecorations="Underline"/>
+                </FormattedString>
+            </Label.FormattedText>
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer/>
+            </Label.GestureRecognizers>
+        </Label>
     </StackLayout>
 
 </ContentPage>
