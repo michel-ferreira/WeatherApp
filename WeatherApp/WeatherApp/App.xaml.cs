@@ -1,5 +1,6 @@
 using Prism;
 using Prism.Ioc;
+using WeatherApp.Services;
 using WeatherApp.ViewModels;
 using WeatherApp.Views;
 using Xamarin.Essentials.Implementation;
@@ -25,9 +26,12 @@ namespace WeatherApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
-
+            containerRegistry.Register<ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<MeteoPage, MeteoPageViewModel>();
+            containerRegistry.RegisterForNavigation<WeatherAppMasterDetailPage, WeatherAppMasterDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
         }
     }
 }

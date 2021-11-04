@@ -1,64 +1,131 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using GalaSoft.MvvmLight.Command;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using System.Windows.Input;
+using WeatherApp.Models;
+using WeatherApp.Services;
+using WeatherApp.Views;
+using Xamarin.Forms;
 
 namespace WeatherApp.ViewModels
 {
-    public class LoginPageViewModel : ViewModelBase
+    public class LoginPageViewModel : INotifyPropertyChanged
     {
-        private string _password;
-        private bool _isRunning;
-        private bool _isEnabled;
-        private DelegateCommand _loginCommand;
+        private ApiService apiService;
+        private bool isRunning;
+        private bool isEnabled;
 
-        public LoginPageViewModel(INavigationService navigationService) : base(navigationService)
-        {
-            Title = "Login";
-            IsEnabled = true;
-        }
-
-        public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
-
-        public string Email { get; set; }
-
-        public string Password
-        {
-            get => _password;
-            set => SetProperty(ref _password, value);
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public bool IsRunning
         {
-            get => _isRunning;
-            set => SetProperty(ref _isRunning, value);
+            get => this.isRunning;
+
+            set
+            {
+                if (this.isRunning != value)
+                {
+                    this.isRunning = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsRunning"));
+                }
+            }
         }
 
         public bool IsEnabled
         {
-            get => _isEnabled;
-            set => SetProperty(ref _isEnabled, value);
+            get => this.isEnabled;
+
+            set
+            {
+                if (this.isEnabled != value)
+                {
+                    this.isEnabled = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsEnabled"));
+                }
+            }
+        }
+
+        public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        public ICommand LoginCommand
+        {
+            get
+            {
+                return new RelayCommand(Login);
+            }
+        }
+
+        public LoginPageViewModel()
+        {
+            this.apiService = new ApiService();
+            this.IsEnabled = true;
         }
 
         private async void Login()
         {
-            if (string.IsNullOrEmpty(Email))
+            if (string.IsNullOrEmpty(this.Email))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter an email.", "Accept");
-                Password = string.Empty;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "You must enter an email....",
+                    "Accept");
+
                 return;
             }
 
-            if (string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(this.Password))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter your password.", "Accept");
-                Password = string.Empty;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "You must enter a password....",
+                    "Accept");
+
                 return;
             }
 
-            await App.Current.MainPage.DisplayAlert("Ok", "Login successful", "Accept");
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            var request = new TokenRequest
+            {
+                Password = this.Password,
+                Username = this.Email
+            };
+
+            var connection = await this.apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    connection.Message,
+                    "Accept");
+                return;
+            }
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var response = await this.apiService.GetTokenAsync(
+                url,
+                "/Account",
+                "/CreateToken",
+                request);
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Email or password incorrect....",
+                    "Accept");
+
+                return;
+            }
+            Application.Current.MainPage = new WeatherAppMasterDetailPage();
         }
     }
 }
