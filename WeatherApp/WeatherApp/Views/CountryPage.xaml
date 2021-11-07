@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="WeatherApp.Views.CountryPage"
+             Title="{Binding Title}">
+
+    <AbsoluteLayout>
+        <StackLayout
+            Padding="5"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All">
+            <SearchBar
+                Placeholder="Search any Country..."
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding Search}" />
+            <CollectionView ItemsSource="{Binding Countries}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCountryCommand}" />
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ffimageloading:CachedImage
+                                Grid.Column="0"
+                                Margin="5"
+                                Aspect="AspectFill"
+                                CacheDuration="50"
+                                RetryCount="3"
+                                RetryDelay="600"
+                                Source="{Binding Image.Flag}"
+                                WidthRequest="100" />
+                            <Image Grid.Column="2" Source="ic_more_vert" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </AbsoluteLayout>
+
+</ContentPage>

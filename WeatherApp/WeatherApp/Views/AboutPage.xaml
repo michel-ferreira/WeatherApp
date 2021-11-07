@@ -3,6 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="WeatherApp.Views.AboutPage">
-  
+             x:Class="WeatherApp.Views.AboutPage"
+             BackgroundColor="#112B47">
+
+    <StackLayout Padding="40" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+        <Label HorizontalOptions="Center" VerticalOptions="Start" Text="About" FontSize="34" TextColor="Gray" FontAttributes="Bold">
+        </Label>
+        <Label HorizontalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Mobile App developer by:" FontSize="20" TextColor="White" FontAttributes="Bold"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
+
 </ContentPage>

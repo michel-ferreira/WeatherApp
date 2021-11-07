@@ -9,7 +9,7 @@
 
     <StackLayout Padding="40" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
 
-        <Image Source="Logo.png" WidthRequest="180" HeightRequest="180"></Image>
+        <Image Source="MainLogo" WidthRequest="180" HeightRequest="180"></Image>
         <Entry
             Keyboard="Email"
             Placeholder="Enter your email"
@@ -38,11 +38,11 @@
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="Don't have an account? " TextColor="Gray" FontAttributes="Bold"/>
-                    <Span Text="Register" TextColor="Gray" FontAttributes="Bold" TextDecorations="Underline"/>
+                    <Span Text="Register" TextColor="Gray" FontAttributes="Bold" TextDecorations="Underline" />
                 </FormattedString>
             </Label.FormattedText>
             <Label.GestureRecognizers>
-                <TapGestureRecognizer/>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Label.GestureRecognizers>
         </Label>
     </StackLayout>

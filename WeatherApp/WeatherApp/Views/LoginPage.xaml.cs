@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace WeatherApp.Views
 {
@@ -7,6 +9,11 @@ namespace WeatherApp.Views
         public LoginPage()
         {
             InitializeComponent();
+        }
+
+        private async void TapGestureRecognizer_Tapped(object sender, System.EventArgs e)
+        {
+            await Browser.OpenAsync(new Uri("http://countryapp.somee.com/Account/Register"), BrowserLaunchMode.SystemPreferred);
         }
     }
 }

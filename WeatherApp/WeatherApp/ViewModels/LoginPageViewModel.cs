@@ -125,7 +125,7 @@ namespace WeatherApp.ViewModels
 
                 return;
             }
-            Application.Current.MainPage = new WeatherAppMasterDetailPage();
+            Application.Current.MainPage = new WeatherAppMasterDetailPage { Detail = new NavigationPage(new MainPage()) };
         }
     }
 }

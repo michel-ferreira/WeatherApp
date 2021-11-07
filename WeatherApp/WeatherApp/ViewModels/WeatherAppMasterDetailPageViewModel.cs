@@ -30,9 +30,26 @@ namespace WeatherApp.ViewModels
             new Menu
             {
                 Icon = "",
+                PageName = $"{nameof(MeteoPage)}",
+                Title = "Weather Info",
+            },
+            new Menu
+            {
+                Icon = "",
+                PageName = $"{nameof(CountryPage)}",
+                Title = "Select Place",
+            },
+            new Menu
+            {
+                Icon = "",
+                PageName = $"{nameof(AboutPage)}",
+                Title = "About",
+            },
+            new Menu
+            {
+                Icon = "",
                 PageName = $"{nameof(LoginPage)}",
-                Title = "LoginPage",
-
+                Title = "Logout",
             }
             };
 

@@ -26,12 +26,14 @@ namespace WeatherApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
-            containerRegistry.Register<ApiService>();
+            containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<MeteoPage, MeteoPageViewModel>();
             containerRegistry.RegisterForNavigation<WeatherAppMasterDetailPage, WeatherAppMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<AboutPage, AboutPageViewModel>();
+            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<CountryPage, CountryPageViewModel>();
         }
     }
 }

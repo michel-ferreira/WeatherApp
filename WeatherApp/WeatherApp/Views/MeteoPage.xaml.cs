@@ -15,7 +15,7 @@ namespace WeatherApp.Views
             GetWeatherInfo();
         }
 
-        private string Location = "Vila Franca de Xira";
+        private string Location = "Lisbon";
 
         private async void GetWeatherInfo()
         {

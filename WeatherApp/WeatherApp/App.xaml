@@ -8,7 +8,8 @@
     <!-- Application resource dictionary -->
         <ResourceDictionary>
             <!--Parameters-->
-            <x:String x:Key="UrlAPI">https://projetofinal.azurewebsites.net/</x:String>
+            <x:String x:Key="UrlAPI">http://www.countryapp.somee.com/</x:String>
+            <x:String x:Key="UrlAPICountry">https://restcountries.com</x:String>
         </ResourceDictionary>
 
   </Application.Resources>
